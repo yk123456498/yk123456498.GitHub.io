@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="666.ico" type="image/x-icon">
-    <title>小杨生日祝福系统</title>
+    <title>同学录</title>
     <style>
         * {
             margin: 0;
@@ -402,11 +402,16 @@
     <!-- 烟花画布（全局唯一） -->
     <canvas id="fireworksCanvas"></canvas>
 
+     <!-- 生日主题背景音乐（隐藏音频控件） -->
+<audio id="birthdayMusic" loop preload="auto">
+  <source src="https://music.163.com/song/media/outer/url?id=1864789443.mp3" type="audio/mpeg">
+</audio>
+
     <!-- 登录和修改密码面板容器 -->
     <div id="authContainer" class="container">
         <!-- 登录表单 -->
         <div id="loginPanel">
-            <h2 class="title">欢迎寿星</h2>
+            <h2 class="title">欢迎回家</h2>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="loginUsername">账号</label>
@@ -471,7 +476,7 @@
     <!-- 账号1专属生日祝福界面 -->
     <div id="birthday-3067337785" class="birthday-page">
         <div class="nav">
-            <h1><i class="fas fa-birthday-cake"></i> 生日祝福专区</h1>
+            <h1><i class="fas fa-birthday-cake"></i> 22级高考3班</h1>
             <div class="user-info">
                 <img src="https://via.placeholder.com/40/ffd166/1a1a2e?text=U1" alt="用户头像" id="navAvatar-3067337785" onclick="triggerAvatarUpload('3067337785')">
                 <span>杨康</span>
@@ -487,7 +492,7 @@
                     </div>
                 </div>
                 <h2 id="userName-3067337785" contenteditable="true">杨康</h2>
-                <div class="birthday-tag">寿星专属</div>
+                <div class="birthday-tag">天天开心</div>
                 <p id="userMotto-3067337785" contenteditable="true">愿所有美好如期而至！</p>
                 <div class="contact">
                     <a href="#"><i class="fab fa-github"></i></a>
@@ -504,40 +509,55 @@
                     <input type="text" id="userCity-3067337785" value="贵州 三穗">
                 </div>
                 <div class="info-item">
-                    <label>生日愿望</label>
+                    <label>座右铭</label>
                     <input type="text" id="userWish-3067337785" value="平安喜乐，万事顺意">
                 </div>
                 <button class="btn edit-btn" onclick="saveInfo('3067337785')">保存所有信息</button>
                 <button class="btn logout-btn" onclick="logout()">退出登录</button>
             </div>
             <div class="content">
-                <h2><i class="fas fa-heart"></i> 好友生日祝福</h2>
+                <h2><i class="fas fa-heart"></i> 好友祝福</h2>
                 <div class="section">
                     <div class="blessing-card" onclick="triggerFireworks()">
-                        <h3>来自 22501 全体成员</h3>
-                        <p>祝杨康生日快乐！愿你前路浩浩荡荡，万事尽可期待，代码无bug，生活无烦恼，永远眼里有光，心中有爱！</p>
-                        <div class="blessing-from">—— 2025-12-02</div>
+                        <h3>来自 22级高考3班 全体成员</h3>
+                        <p>祝杨康天天开心！愿你前路浩浩荡荡，万事尽可期待，生活无烦恼，永远眼里有光，心中有爱！</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
                     </div>
                     <div class="blessing-card" onclick="triggerFireworks()">
-                        <h3>来自 好友 小杨</h3>
-                        <p>生日快乐呀！认识这么久，见证了你一路的成长与努力，新的一岁愿你被世界温柔以待，想要的都拥有，得不到的都释怀，天天开心！</p>
-                        <div class="blessing-from">—— 2025-12-02</div>
+                        <h3>来自 好友 董菊英</h3>
+                        <p>    毕业不是终点，而是新旅程的起点。褪下学生装，穿上梦想的行囊，以梦为马，勇往直前     </p>
+                        <div class="blessing-from">—— 2025-11-07</div>
                     </div>
                     <div class="blessing-card" onclick="triggerFireworks()">
-                        <h3>来自 家人</h3>
-                        <p>宝贝生日快乐！愿你平安健康，自信勇敢，无论走多远，家永远是你的港湾，我们永远是你最坚实的后盾，爱你哟！</p>
-                        <div class="blessing-from">—— 2025-12-02</div>
+                        <h3>来自 好友 邰丽梅</h3>
+                        <p>时间流逝真快，我们马上就要离开这个相处了三年的母校说分离了，三年时间里不管春夏秋冬一年四季我们都有说有笑。如今却忆江南乐，当时年少春衫薄却不懂得珍惜.感谢母校，感谢母校三年来的陪伴，感谢母校的蕴育，感谢母校给了我第二个“家”.</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
                     </div>
                     <div class="blessing-card" onclick="triggerFireworks()">
-                        <h3>来自 同学 小张</h3>
-                        <p>祝大神生日快乐！学习中多亏了你的帮助与指导，新的一岁愿你事业蒸蒸日上，技术突飞猛进，暴富暴美，好运连连！</p>
-                        <div class="blessing-from">—— 2025-12-02</div>
+                        <h3>来自 好友 田维国</h3>
+                        <p>喔...偷偷的爱上她</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 杨忠</h3>
+                        <p>共赴青春约，同度中职朝，离别不散少年骄</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 张顺华</h3>
+                        <p>时间过得很快，很高兴认识你们</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 张明发</h3>
+                        <p>一技在手，天下我有</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
                     </div>
                 </div>
-                <h2><i class="fas fa-star"></i> 生日寄语</h2>
+                <h2><i class="fas fa-star"></i> 毕业寄语</h2>
                 <div class="section">
                     <div class="blessing-card" style="border-left-color: #4facfe;">
-                        <p>生日是新的开始，愿你在未来的日子里，既有烟火气，又有诗意，不慌不忙，向阳生长，活成自己喜欢的样子！</p>
+                        <p>几年同窗，一生情谊。毕业不是结束，而是新故事的开篇。愿你前路有星光引路，有清风相伴，既能从容应对生活的挑战，也能守住心底的纯粹与热爱。无论未来身在何处，记得我们曾一起度过的滚烫岁月，常联系，多珍重，祝前程似锦，万事顺意！</p>
                     </div>
                 </div>
             </div>
@@ -545,26 +565,26 @@
     </div>
 
     <!-- 账号2专属生日祝福界面 -->
-    <div id="birthday-1008612" class="birthday-page">
+    <div id="birthday-1543827362" class="birthday-page">
         <div class="nav">
-            <h1><i class="fas fa-birthday-cake"></i> 生日祝福专区</h1>
+            <h1><i class="fas fa-birthday-cake"></i> 22级高考3班</h1>
             <div class="user-info">
-                <img src="https://via.placeholder.com/40/4facfe/1a1a2e?text=U2" alt="用户头像" id="navAvatar-1008612" onclick="triggerAvatarUpload('1008612')">
-                <span>1008612</span>
+                <img src="https://via.placeholder.com/40/ffd166/1a1a2e?text=U1" alt="用户头像" id="navAvatar-1543827362" onclick="triggerAvatarUpload('1543827362')">
+                <span>董菊英</span>
             </div>
         </div>
         <div class="main">
             <div class="sidebar">
                 <div class="avatar-container">
-                    <img src="https://via.placeholder.com/150/4facfe/1a1a2e?text=U2" alt="个人头像" class="avatar" id="sidebarAvatar-1008612" onclick="triggerAvatarUpload('1008612')">
+                    <img src="https://via.placeholder.com/150/ffd166/1a1a2e?text=U1" alt="个人头像" class="avatar" id="sidebarAvatar-1543827362" onclick="triggerAvatarUpload('1543827362')">
                     <div class="avatar-upload">
-                        <input type="file" id="avatarInput-1008612" accept="image/*" onchange="handleAvatarUpload('1008612')">
+                        <input type="file" id="avatarInput-1543827362" accept="image/*" onchange="handleAvatarUpload('1543827362')">
                         <i class="fas fa-camera"></i>
                     </div>
                 </div>
-                <h2 id="userName-1008612" contenteditable="true">管理员</h2>
-                <div class="birthday-tag">寿星专属</div>
-                <p id="userMotto-1008612" contenteditable="true">新岁新起点，万事皆可期！</p>
+                <h2 id="userName-1543827362" contenteditable="true">董菊英</h2>
+                <div class="birthday-tag">天天开心</div>
+                <p id="userMotto-1543827362" contenteditable="true">愿所有美好如期而至！</p>
                 <div class="contact">
                     <a href="#"><i class="fab fa-github"></i></a>
                     <a href="#"><i class="fab fa-weixin"></i></a>
@@ -573,47 +593,523 @@
                 </div>
                 <div class="info-item">
                     <label>生日日期</label>
-                    <input type="text" id="userBirthday-1008612" value="1995-05-15">
+                    <input type="text" id="userBirthday-1543827362" value="2004-11-04">
                 </div>
                 <div class="info-item">
-                    <label>所属部门</label>
-                    <input type="text" id="userDept-1008612" value="技术部">
+                    <label>所在城市</label>
+                    <input type="text" id="userCity-1543827362" value="贵州 剑河">
                 </div>
                 <div class="info-item">
-                    <label>生日愿望</label>
-                    <input type="text" id="userWish-1008612" value="系统稳定，团队和睦">
+                    <label>座右铭</label>
+                    <input type="text" id="userWish-1543827362" value="平安喜乐，万事顺意">
                 </div>
-                <button class="btn edit-btn" onclick="saveInfo('1008612')">保存所有信息</button>
+                <button class="btn edit-btn" onclick="saveInfo('1543827362')">保存所有信息</button>
                 <button class="btn logout-btn" onclick="logout()">退出登录</button>
             </div>
             <div class="content">
-                <h2><i class="fas fa-heart"></i> 同事生日祝福</h2>
+                <h2><i class="fas fa-heart"></i> 好友祝福</h2>
                 <div class="section">
                     <div class="blessing-card" onclick="triggerFireworks()">
-                        <h3>来自 技术部 全体同事</h3>
-                        <div class="blessing-from">—— 2024-05-15</div>
-                        <p>祝管理员生日快乐！感谢你一直以来的带领与付出，是你让团队更有凝聚力，新的一岁愿你工作顺利，身体健康，阖家幸福，心想事成！</p>
+                        <h3>来自 22级高考3班 全体成员</h3>
+                        <p>祝董菊英天天开心！愿你前路浩浩荡荡，万事尽可期待，生活无烦恼，永远眼里有光，心中有爱！</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
                     </div>
                     <div class="blessing-card" onclick="triggerFireworks()">
-                        <h3>来自 运营部 小王</h3>
-                        <p>祝超靠谱的管理员生日快乐！每次遇到问题你都能及时解决，有你在太安心了，新岁愿你暴富暴帅，烦恼清零，快乐加倍！</p>
-                        <div class="blessing-from">—— 2024-05-15</div>
+                        <h3>来自 好友 杨康</h3>
+                        <p>青春不散场，梦想不落幕。毕业是一场盛大的告别，也是一次全新的出发。愿你带着校园里的美好回忆，揣着对未来的无限憧憬，勇敢去闯，去试，去创造属于自己的精彩。无论遇到什么，都别忘了回头看看，那些陪你走过青春的人，永远是你最坚实的后盾～</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
                     </div>
                     <div class="blessing-card" onclick="triggerFireworks()">
-                        <h3>来自 领导 张总</h3>
-                        <p>生日快乐！你在工作中的责任心和专业能力值得所有人学习，新的一年期待你带来更多惊喜，愿你前程似锦，未来可期！</p>
-                        <div class="blessing-from">—— 2024-05-15</div>
+                        <h3>来自 好友 邰丽梅</h3>
+                        <p>时间流逝真快，我们马上就要离开这个相处了三年的母校说分离了，三年时间里不管春夏秋冬一年四季我们都有说有笑。如今却忆江南乐，当时年少春衫薄却不懂得珍惜.感谢母校，感谢母校三年来的陪伴，感谢母校的蕴育，感谢母校给了我第二个“家”.</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 田维国</h3>
+                        <p>喔...偷偷的爱上她</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 杨忠</h3>
+                        <p>共赴青春约，同度中职朝，离别不散少年骄</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 张顺华</h3>
+                        <p>时间过得很快，很高兴认识你们</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 张明发</h3>
+                        <p>一技在手，天下我有</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
                     </div>
                 </div>
-                <h2><i class="fas fa-star"></i> 生日寄语</h2>
+                <h2><i class="fas fa-star"></i> 毕业寄语</h2>
                 <div class="section">
-                    <div class="blessing-card" style="border-left-color: #1dd1a1;">
-                        <p>成长不期而遇，生日如期而至。愿你在新的一岁里，保持热爱，奔赴山海，既有盔甲也有软肋，既有诗和远方也有烟火日常！</p>
+                    <div class="blessing-card" style="border-left-color: #4facfe;">
+                        <p>几年同窗，一生情谊。毕业不是结束，而是新故事的开篇。愿你前路有星光引路，有清风相伴，既能从容应对生活的挑战，也能守住心底的纯粹与热爱。无论未来身在何处，记得我们曾一起度过的滚烫岁月，常联系，多珍重，祝前程似锦，万事顺意！</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<!-- 账号3专属生日祝福界面 -->
+    <div id="birthday-1315688772" class="birthday-page">
+        <div class="nav">
+            <h1><i class="fas fa-birthday-cake"></i> 22级高考3班</h1>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40/ffd166/1a1a2e?text=U1" alt="用户头像" id="navAvatar-1315688772" onclick="triggerAvatarUpload('1315688772')">
+                <span>邰丽梅</span>
+            </div>
+        </div>
+        <div class="main">
+            <div class="sidebar">
+                <div class="avatar-container">
+                    <img src="https://via.placeholder.com/150/ffd166/1a1a2e?text=U1" alt="个人头像" class="avatar" id="sidebarAvatar-1315688772" onclick="triggerAvatarUpload('1315688772')">
+                    <div class="avatar-upload">
+                        <input type="file" id="avatarInput-1315688772" accept="image/*" onchange="handleAvatarUpload('1315688772')">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <h2 id="userName-1315688772" contenteditable="true">邰丽梅</h2>
+                <div class="birthday-tag">天天开心</div>
+                <p id="userMotto-1315688772" contenteditable="true">愿所有美好如期而至！</p>
+                <div class="contact">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                    <a href="#"><i class="fas fa-gift"></i></a>
+                </div>
+                <div class="info-item">
+                    <label>生日日期</label>
+                    <input type="text" id="userBirthday-1315688772" value="2006-10-08">
+                </div>
+                <div class="info-item">
+                    <label>所在城市</label>
+                    <input type="text" id="userCity-1315688772" value="贵州 剑河">
+                </div>
+                <div class="info-item">
+                    <label>座右铭</label>
+                    <input type="text" id="userWish-1315688772" value="平安喜乐，万事顺意">
+                </div>
+                <button class="btn edit-btn" onclick="saveInfo('1315688772')">保存所有信息</button>
+                <button class="btn logout-btn" onclick="logout()">退出登录</button>
+            </div>
+            <div class="content">
+                <h2><i class="fas fa-heart"></i> 好友祝福</h2>
+                <div class="section">
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 22级高考3班 全体成员</h3>
+                        <p>祝邰丽梅天天开心！愿你前路浩浩荡荡，万事尽可期待，生活无烦恼，永远眼里有光，心中有爱！</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 董菊英</h3>
+                        <p>    毕业不是终点，而是新旅程的起点。褪下学生装，穿上梦想的行囊，以梦为马，勇往直前     </p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 杨康</h3>
+                        <p>青春不散场，梦想不落幕。毕业是一场盛大的告别，也是一次全新的出发。愿你带着校园里的美好回忆，揣着对未来的无限憧憬，勇敢去闯，去试，去创造属于自己的精彩。无论遇到什么，都别忘了回头看看，那些陪你走过青春的人，永远是你最坚实的后盾～</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 田维国</h3>
+                        <p>喔...偷偷的爱上她</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 杨忠</h3>
+                        <p>共赴青春约，同度中职朝，离别不散少年骄</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 张顺华</h3>
+                        <p>时间过得很快，很高兴认识你们</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 张明发</h3>
+                        <p>一技在手，天下我有</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-star"></i> 毕业寄语</h2>
+                <div class="section">
+                    <div class="blessing-card" style="border-left-color: #4facfe;">
+                        <p>几年同窗，一生情谊。毕业不是结束，而是新故事的开篇。愿你前路有星光引路，有清风相伴，既能从容应对生活的挑战，也能守住心底的纯粹与热爱。无论未来身在何处，记得我们曾一起度过的滚烫岁月，常联系，多珍重，祝前程似锦，万事顺意！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- 账号4专属生日祝福界面 -->
+    <div id="birthday-2189729195" class="birthday-page">
+        <div class="nav">
+            <h1><i class="fas fa-birthday-cake"></i> 22级高考3班</h1>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40/ffd166/1a1a2e?text=U1" alt="用户头像" id="navAvatar-2189729195" onclick="triggerAvatarUpload('2189729195')">
+                <span>杨忠</span>
+            </div>
+        </div>
+        <div class="main">
+            <div class="sidebar">
+                <div class="avatar-container">
+                    <img src="https://via.placeholder.com/150/ffd166/1a1a2e?text=U1" alt="个人头像" class="avatar" id="sidebarAvatar-2189729195" onclick="triggerAvatarUpload('2189729195')">
+                    <div class="avatar-upload">
+                        <input type="file" id="avatarInput-2189729195" accept="image/*" onchange="handleAvatarUpload('2189729195')">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <h2 id="userName-2189729195" contenteditable="true">杨忠</h2>
+                <div class="birthday-tag">天天开心</div>
+                <p id="userMotto-2189729195" contenteditable="true">愿所有美好如期而至！</p>
+                <div class="contact">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                    <a href="#"><i class="fas fa-gift"></i></a>
+                </div>
+                <div class="info-item">
+                    <label>生日日期</label>
+                    <input type="text" id="userBirthday-2189729195" value="2005-08-24">
+                </div>
+                <div class="info-item">
+                    <label>所在城市</label>
+                    <input type="text" id="userCity-2189729195" value="贵州 剑河">
+                </div>
+                <div class="info-item">
+                    <label>座右铭</label>
+                    <input type="text" id="userWish-2189729195" value="平安喜乐，万事顺意">
+                </div>
+                <button class="btn edit-btn" onclick="saveInfo('2189729195')">保存所有信息</button>
+                <button class="btn logout-btn" onclick="logout()">退出登录</button>
+            </div>
+            <div class="content">
+                <h2><i class="fas fa-heart"></i> 好友祝福</h2>
+                <div class="section">
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 22级高考3班 全体成员</h3>
+                        <p>祝杨忠天天开心！愿你前路浩浩荡荡，万事尽可期待，生活无烦恼，永远眼里有光，心中有爱！</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 杨康</h3>
+                        <p>青春不散场，梦想不落幕。毕业是一场盛大的告别，也是一次全新的出发。愿你带着校园里的美好回忆，揣着对未来的无限憧憬，勇敢去闯，去试，去创造属于自己的精彩。无论遇到什么，都别忘了回头看看，那些陪你走过青春的人，永远是你最坚实的后盾～</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 田维国</h3>
+                        <p>喔...偷偷的爱上她</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                      <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 董菊英</h3>
+                        <p>     毕业不是终点，而是新旅程的起点。褪下学生装，穿上梦想的行囊，以梦为马，勇往直前    </p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 邰丽梅</h3>
+                        <p>时间流逝真快，我们马上就要离开这个相处了三年的母校说分离了，三年时间里不管春夏秋冬一年四季我们都有说有笑。如今却忆江南乐，当时年少春衫薄却不懂得珍惜.感谢母校，感谢母校三年来的陪伴，感谢母校的蕴育，感谢母校给了我第二个“家”.</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 张顺华</h3>
+                        <p>时间过得很快，很高兴认识你们</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 张明发</h3>
+                        <p>一技在手，天下我有</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-star"></i> 毕业寄语</h2>
+                <div class="section">
+                    <div class="blessing-card" style="border-left-color: #4facfe;">
+                        <p>几年同窗，一生情谊。毕业不是结束，而是新故事的开篇。愿你前路有星光引路，有清风相伴，既能从容应对生活的挑战，也能守住心底的纯粹与热爱。无论未来身在何处，记得我们曾一起度过的滚烫岁月，常联系，多珍重，祝前程似锦，万事顺意！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 账号5专属生日祝福界面 -->
+    <div id="birthday-1705571698" class="birthday-page">
+        <div class="nav">
+            <h1><i class="fas fa-birthday-cake"></i> 22级高考3班</h1>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40/ffd166/1a1a2e?text=U1" alt="用户头像" id="navAvatar-1705571698" onclick="triggerAvatarUpload('1705571698')">
+                <span>田维国</span>
+            </div>
+        </div>
+        <div class="main">
+            <div class="sidebar">
+                <div class="avatar-container">
+                    <img src="https://via.placeholder.com/150/ffd166/1a1a2e?text=U1" alt="个人头像" class="avatar" id="sidebarAvatar-1705571698" onclick="triggerAvatarUpload('1705571698')">
+                    <div class="avatar-upload">
+                        <input type="file" id="avatarInput-1705571698" accept="image/*" onchange="handleAvatarUpload('1705571698')">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <h2 id="userName-1705571698" contenteditable="true">田维国</h2>
+                <div class="birthday-tag">天天开心</div>
+                <p id="userMotto-1705571698" contenteditable="true">愿所有美好如期而至！</p>
+                <div class="contact">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                    <a href="#"><i class="fas fa-gift"></i></a>
+                </div>
+                <div class="info-item">
+                    <label>生日日期</label>
+                    <input type="text" id="userBirthday-1705571698" value="2005-09-30">
+                </div>
+                <div class="info-item">
+                    <label>所在城市</label>
+                    <input type="text" id="userCity-1705571698" value="贵州 剑河">
+                </div>
+                <div class="info-item">
+                    <label>座右铭</label>
+                    <input type="text" id="userWish-1705571698" value="平安喜乐，万事顺意">
+                </div>
+                <button class="btn edit-btn" onclick="saveInfo('1705571698')">保存所有信息</button>
+                <button class="btn logout-btn" onclick="logout()">退出登录</button>
+            </div>
+            <div class="content">
+                <h2><i class="fas fa-heart"></i> 好友祝福</h2>
+                <div class="section">
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 22级高考3班 全体成员</h3>
+                        <p>祝田维国天天开心！愿你前路浩浩荡荡，万事尽可期待，生活无烦恼，永远眼里有光，心中有爱！</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 杨康</h3>
+                        <p>青春不散场，梦想不落幕。毕业是一场盛大的告别，也是一次全新的出发。愿你带着校园里的美好回忆，揣着对未来的无限憧憬，勇敢去闯，去试，去创造属于自己的精彩。无论遇到什么，都别忘了回头看看，那些陪你走过青春的人，永远是你最坚实的后盾～</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                      <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 董菊英</h3>
+                        <p>毕业不是终点，而是新旅程的起点。褪下学生装，穿上梦想的行囊，以梦为马，勇往直前</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 邰丽梅</h3>
+                        <p>时间流逝真快，我们马上就要离开这个相处了三年的母校说分离了，三年时间里不管春夏秋冬一年四季我们都有说有笑。如今却忆江南乐，当时年少春衫薄却不懂得珍惜.感谢母校，感谢母校三年来的陪伴，感谢母校的蕴育，感谢母校给了我第二个“家”.</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 杨忠</h3>
+                        <p>共赴青春约，同度中职朝，离别不散少年骄</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                       <h3>来自 好友 张顺华</h3>
+                        <p> 时间过得很快，很高兴认识你们</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 张明发</h3>
+                        <p>一技在手，天下我有</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-star"></i> 毕业寄语</h2>
+                <div class="section">
+                    <div class="blessing-card" style="border-left-color: #4facfe;">
+                        <p>几年同窗，一生情谊。毕业不是结束，而是新故事的开篇。愿你前路有星光引路，有清风相伴，既能从容应对生活的挑战，也能守住心底的纯粹与热爱。无论未来身在何处，记得我们曾一起度过的滚烫岁月，常联系，多珍重，祝前程似锦，万事顺意！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ <!-- 账号6专属生日祝福界面 -->
+    <div id="birthday-1468059877" class="birthday-page">
+        <div class="nav">
+            <h1><i class="fas fa-birthday-cake"></i> 22级高考3班</h1>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40/ffd166/1a1a2e?text=U1" alt="用户头像" id="navAvatar-1468059877" onclick="triggerAvatarUpload('1468059877')">
+                <span>张顺华</span>
+            </div>
+        </div>
+        <div class="main">
+            <div class="sidebar">
+                <div class="avatar-container">
+                    <img src="https://via.placeholder.com/150/ffd166/1a1a2e?text=U1" alt="个人头像" class="avatar" id="sidebarAvatar-1468059877" onclick="triggerAvatarUpload('1468059877')">
+                    <div class="avatar-upload">
+                        <input type="file" id="avatarInput-1468059877" accept="image/*" onchange="handleAvatarUpload('1468059877')">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <h2 id="userName-1468059877" contenteditable="true">张顺华</h2>
+                <div class="birthday-tag">天天开心</div>
+                <p id="userMotto-1468059877" contenteditable="true">愿所有美好如期而至！</p>
+                <div class="contact">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                    <a href="#"><i class="fas fa-gift"></i></a>
+                </div>
+                <div class="info-item">
+                    <label>生日日期</label>
+                    <input type="text" id="userBirthday-1468059877" value="2005-4-30">
+                </div>
+                <div class="info-item">
+                    <label>所在城市</label>
+                    <input type="text" id="userCity-1468059877" value="贵州 剑河">
+                </div>
+                <div class="info-item">
+                    <label>座右铭</label>
+                    <input type="text" id="userWish-1468059877" value="平安喜乐，万事顺意">
+                </div>
+                <button class="btn edit-btn" onclick="saveInfo('1468059877')">保存所有信息</button>
+                <button class="btn logout-btn" onclick="logout()">退出登录</button>
+            </div>
+            <div class="content">
+                <h2><i class="fas fa-heart"></i> 好友祝福</h2>
+                <div class="section">
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 22级高考3班 全体成员</h3>
+                        <p>祝张顺华天天开心！愿你前路浩浩荡荡，万事尽可期待，生活无烦恼，永远眼里有光，心中有爱！</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 杨康</h3>
+                        <p>青春不散场，梦想不落幕。毕业是一场盛大的告别，也是一次全新的出发。愿你带着校园里的美好回忆，揣着对未来的无限憧憬，勇敢去闯，去试，去创造属于自己的精彩。无论遇到什么，都别忘了回头看看，那些陪你走过青春的人，永远是你最坚实的后盾～</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                      <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 董菊英</h3>
+                        <p>     毕业不是终点，而是新旅程的起点。褪下学生装，穿上梦想的行囊，以梦为马，勇往直前    </p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 邰丽梅</h3>
+                        <p>时间流逝真快，我们马上就要离开这个相处了三年的母校说分离了，三年时间里不管春夏秋冬一年四季我们都有说有笑。如今却忆江南乐，当时年少春衫薄却不懂得珍惜.感谢母校，感谢母校三年来的陪伴，感谢母校的蕴育，感谢母校给了我第二个“家”.</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 杨忠</h3>
+                        <p>共赴青春约，同度中职朝，离别不散少年骄</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 田维国</h3>
+                        <p>喔...偷偷的爱上她</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                       <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 张明发</h3>
+                        <p>一技在手，天下我有</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-star"></i> 毕业寄语</h2>
+                <div class="section">
+                    <div class="blessing-card" style="border-left-color: #4facfe;">
+                        <p>几年同窗，一生情谊。毕业不是结束，而是新故事的开篇。愿你前路有星光引路，有清风相伴，既能从容应对生活的挑战，也能守住心底的纯粹与热爱。无论未来身在何处，记得我们曾一起度过的滚烫岁月，常联系，多珍重，祝前程似锦，万事顺意！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 账号7专属生日祝福界面 -->
+    <div id="birthday-3314619446" class="birthday-page">
+        <div class="nav">
+            <h1><i class="fas fa-birthday-cake"></i> 22级高考3班</h1>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40/ffd166/1a1a2e?text=U1" alt="用户头像" id="navAvatar-3314619446" onclick="triggerAvatarUpload('3314619446')">
+                <span>张明发</span>
+            </div>
+        </div>
+        <div class="main">
+            <div class="sidebar">
+                <div class="avatar-container">
+                    <img src="https://via.placeholder.com/150/ffd166/1a1a2e?text=U1" alt="个人头像" class="avatar" id="sidebarAvatar-3314619446" onclick="triggerAvatarUpload('3314619446')">
+                    <div class="avatar-upload">
+                        <input type="file" id="avatarInput-3314619446" accept="image/*" onchange="handleAvatarUpload('3314619446')">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <h2 id="userName-3314619446" contenteditable="true">张明发</h2>
+                <div class="birthday-tag">天天开心</div>
+                <p id="userMotto-3314619446" contenteditable="true">愿所有美好如期而至！</p>
+                <div class="contact">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                    <a href="#"><i class="fas fa-gift"></i></a>
+                </div>
+                <div class="info-item">
+                    <label>生日日期</label>
+                    <input type="text" id="userBirthday-3314619446" value="2005-09-09">
+                </div>
+                <div class="info-item">
+                    <label>所在城市</label>
+                    <input type="text" id="userCity-3314619446" value="贵州 剑河">
+                </div>
+                <div class="info-item">
+                    <label>座右铭</label>
+                    <input type="text" id="userWish-3314619446" value="平安喜乐，万事顺意">
+                </div>
+                <button class="btn edit-btn" onclick="saveInfo('3314619446')">保存所有信息</button>
+                <button class="btn logout-btn" onclick="logout()">退出登录</button>
+            </div>
+            <div class="content">
+                <h2><i class="fas fa-heart"></i> 好友祝福</h2>
+                <div class="section">
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 22级高考3班 全体成员</h3>
+                        <p>祝张明发天天开心！愿你前路浩浩荡77荡，万事尽可期待，生活无烦恼，永远眼里有光，心中有爱！</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 杨康</h3>
+                        <p>青春不散场，梦想不落幕。毕业是一场盛大的告别，也是一次全新的出发。愿你带着校园里的美好回忆，揣着对未来的无限憧憬，勇敢去闯，去试，去创造属于自己的精彩。无论遇到什么，都别忘了回头看看，那些陪你走过青春的人，永远是你最坚实的后盾～</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                      <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 董菊英</h3>
+                        <p>     毕业不是终点，而是新旅程的起点。褪下学生装，穿上梦想的行囊，以梦为马，勇往直前    </p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 邰丽梅</h3>
+                        <p>时间流逝真快，我们马上就要离开这个相处了三年的母校说分离了，三年时间里不管春夏秋冬一年四季我们都有说有笑。如今却忆江南乐，当时年少春衫薄却不懂得珍惜.感谢母校，感谢母校三年来的陪伴，感谢母校的蕴育，感谢母校给了我第二个“家”.</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 杨忠</h3>
+                        <p>共赴青春约，同度中职朝，离别不散少年骄</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                     <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 田维国</h3>
+                        <p>喔...偷偷的爱上她</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                      <div class="blessing-card" onclick="triggerFireworks()">
+                       <h3>来自 好友 张顺华</h3>
+                        <p> 时间过得很快，很高兴认识你们</p>
+                        <div class="blessing-from">—— 2025-11-07</div>
+                    </div>
+                </div>
+
+                <h2><i class="fas fa-star"></i> 毕业寄语</h2>
+                <div class="section">
+                    <div class="blessing-card" style="border-left-color: #4facfe;">
+                        <p>几年同窗，一生情谊。毕业不是结束，而是新故事的开篇。愿你前路有星光引路，有清风相伴，既能从容应对生活的挑战，也能守住心底的纯粹与热爱。无论未来身在何处，记得我们曾一起度过的滚烫岁月，常联系，多珍重，祝前程似锦，万事顺意！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 
     <script>
         // 全局变量：存储当前上传的头像信息、烟花实例
@@ -624,7 +1120,7 @@
         // 预设多个账号信息（账号、密码、个人信息、头像）
         const userList = {
             '3067337785': { 
-                password: '12345678', 
+                password: 'Y2345678', 
                 info: {
                     name: '杨康',
                     motto: '愿所有美好如期而至！',
@@ -635,18 +1131,78 @@
                     navAvatar: 'https://via.placeholder.com/40/ffd166/1a1a2e?text=U1'
                 }
             },
-            '1008612': { 
-                password: 'admin888', 
+            '1543827362': { 
+                password: 'D2345678', 
                 info: {
-                    name: '管理员',
+                    name: '董菊英',
                     motto: '新岁新起点，万事皆可期！',
-                    birthday: '1995-05-15',
-                    dept: '技术部',
+                    birthday: '2004-11-04',
+                    city: '贵州 剑河',
                     wish: '系统稳定，团队和睦',
                     avatar: 'https://via.placeholder.com/150/4facfe/1a1a2e?text=U2', // 默认头像
                     navAvatar: 'https://via.placeholder.com/40/4facfe/1a1a2e?text=U2'
                 }
-            }
+            },
+           '1315688772': { 
+                password: 'T2345678', 
+                info: {
+                    name: '邰丽梅',
+                    motto: '新岁新起点，万事皆可期！',
+                    birthday: '2006-10-08',
+                    city: '贵州 剑河',
+                    wish: '系统稳定，团队和睦',
+                    avatar: 'https://via.placeholder.com/150/4facfe/1a1a2e?text=U2', // 默认头像
+                    navAvatar: 'https://via.placeholder.com/40/4facfe/1a1a2e?text=U2'
+                }
+            },
+            '2189729195': { 
+                password: 'Y2345678', 
+                info: {
+                    name: '杨忠',
+                    motto: '新岁新起点，万事皆可期！',
+                    birthday: '2005-08-24',
+                    city: '贵州 剑河',
+                    wish: '系统稳定，团队和睦',
+                    avatar: 'https://via.placeholder.com/150/4facfe/1a1a2e?text=U2', // 默认头像
+                    navAvatar: 'https://via.placeholder.com/40/4facfe/1a1a2e?text=U2'
+                }
+            },   
+                '1705571698': { 
+                password: 'T2345678', 
+                info: {
+                    name: '田维国',
+                    motto: '新岁新起点，万事皆可期！',
+                    birthday: '2005-09-30',
+                    city: '贵州 剑河',
+                    wish: '系统稳定，团队和睦',
+                    avatar: 'https://via.placeholder.com/150/4facfe/1a1a2e?text=U2', // 默认头像
+                    navAvatar: 'https://via.placeholder.com/40/4facfe/1a1a2e?text=U2'
+                }
+            },
+            '1468059877': { 
+                password: 'Z2345678', 
+                info: {
+                    name: '张顺华',
+                    motto: '新岁新起点，万事皆可期！',
+                    birthday: '2005-4-30',
+                    city: '贵州 剑河',
+                    wish: '系统稳定，团队和睦',
+                    avatar: 'https://via.placeholder.com/150/4facfe/1a1a2e?text=U2', // 默认头像
+                    navAvatar: 'https://via.placeholder.com/40/4facfe/1a1a2e?text=U2'
+                }
+            } ,
+              '3314619446': { 
+                password: 'Z2345678', 
+                info: {
+                    name: '张明发',
+                    motto: '新岁新起点，万事皆可期！',
+                    birthday: '2005-09-09',
+                    city: '贵州 剑河',
+                    wish: '系统稳定，团队和睦',
+                    avatar: 'https://via.placeholder.com/150/4facfe/1a1a2e?text=U2', // 默认头像
+                    navAvatar: 'https://via.placeholder.com/40/4facfe/1a1a2e?text=U2'
+                }
+            } ,
         };
         
         // ====================== 持久化核心功能 ======================
@@ -959,6 +1515,18 @@
                     document.getElementById(`birthday-${username}`).style.display = 'block';
                     // 填充个人信息
                     fillUserInfo(username);
+
+                     // ========== 新增：播放背景音乐 ==========
+const music = document.getElementById('birthdayMusic');
+// 部分浏览器需用户交互后才能播放，这里结合登录操作（用户点击了登录按钮，已满足交互要求）
+music.play().catch(err => {
+  console.log('音乐播放失败：', err);
+  // 可选：失败时提示用户手动播放
+  alert('请点击页面任意位置开启背景音乐~');
+  // 绑定一次点击事件，用户点击后再次尝试播放
+  document.addEventListener('click', () => music.play(), { once: true });
+});
+
                     // 登录成功触发全屏烟花特效
                     for (let i = 0; i < 5; i++) {
                         setTimeout(() => {
@@ -979,14 +1547,14 @@
         // 填充个人信息到界面
         function fillUserInfo(username) {
             const user = userList[username];
-            if (username === '1008611') {
-                document.getElementById('userName-1008611').textContent = user.info.name;
-                document.getElementById('userMotto-1008611').textContent = user.info.motto;
-                document.getElementById('userBirthday-1008611').value = user.info.birthday;
-                document.getElementById('userCity-1008611').value = user.info.city;
-                document.getElementById('userWish-1008611').value = user.info.wish;
-                document.getElementById('sidebarAvatar-1008611').src = user.info.avatar;
-                document.getElementById('navAvatar-1008611').src = user.info.navAvatar;
+            if (username === '3067337785') {
+                document.getElementById('userName-3067337785').textContent = user.info.name;
+                document.getElementById('userMotto-3067337785').textContent = user.info.motto;
+                document.getElementById('userBirthday-3067337785').value = user.info.birthday;
+                document.getElementById('userCity-3067337785').value = user.info.city;
+                document.getElementById('userWish-3067337785').value = user.info.wish;
+                document.getElementById('sidebarAvatar-3067337785').src = user.info.avatar;
+                document.getElementById('navAvatar-3067337785').src = user.info.navAvatar;
             } else if (username === '1008612') {
                 document.getElementById('userName-1008612').textContent = user.info.name;
                 document.getElementById('userMotto-1008612').textContent = user.info.motto;
