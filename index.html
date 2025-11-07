@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="666.ico" type="image/x-icon">
+    <title>小杨生日祝福系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: '微软雅黑', sans-serif;
+            transition: all 0.3s ease;
+        }
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f5f5f5;
+            overflow: hidden;
+        }
+        .container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            z-index: 10;
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 14px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+        }
+        .form-group input:focus {
+            border-color: #4facfe;
+            box-shadow: 0 0 0 2px rgba(79, 172, 254, 0.2);
+        }
+        .btn {
+            width: 100%;
+            padding: 12px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .login-btn {
+            background: #4facfe;
+        }
+        .login-btn:hover {
+            background: #00a2fe;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        .link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .link a {
+            color: #4facfe;
+            text-decoration: none;
+        }
+        .link a:hover {
+            text-decoration: underline;
+        }
+
+        /* 生日祝福界面样式 */
+        .birthday-page {
+            width: 100vw;
+            height: 100vh;
+            display: none;
+            background: #1a1a2e;
+            color: white;
+            padding: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        /* 烟花画布（全屏覆盖） */
+        #fireworksCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 5;
+            pointer-events: none; /* 不影响下层点击 */
+        }
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 50px;
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+        }
+        .nav h1 {
+            font-size: 24px;
+            color: #ffd166;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav h1 i {
+            color: #ef476f;
+        }
+        .nav .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .nav .user-info img:hover {
+            border-color: #ffd166;
+        }
+        .main {
+            display: flex;
+            margin-top: 80px;
+            height: calc(100vh - 80px);
+            position: relative;
+            z-index: 10;
+        }
+        .sidebar {
+            width: 300px;
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-radius: 10px;
+            margin-right: 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+        .avatar-container {
+            position: relative;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .sidebar .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #ffd166;
+            object-fit: cover;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 209, 102, 0.5);
+        }
+        .avatar-upload {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: #ef476f;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border: 3px solid #1a1a2e;
+            box-shadow: 0 0 10px rgba(239, 71, 111, 0.7);
+        }
+        .avatar-upload input {
+            display: none;
+        }
+        .avatar-upload i {
+            font-size: 20px;
+            color: white;
+        }
+        .sidebar h2 {
+            margin-bottom: 10px;
+            cursor: text;
+            padding: 5px;
+            border-radius: 5px;
+            color: #ffd166;
+            font-size: 22px;
+        }
+        .sidebar h2:hover {
+            background: rgba(255, 209, 102, 0.1);
+        }
+        .sidebar .birthday-tag {
+            background: #ef476f;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            box-shadow: 0 0 10px rgba(239, 71, 111, 0.5);
+        }
+        .sidebar p {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+            cursor: text;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .sidebar p:hover {
+            background: rgba(255, 209, 102, 0.1);
+        }
+        .sidebar .contact {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .sidebar .contact a {
+            color: #cbd5e1;
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .sidebar .contact a:hover {
+            color: #ffd166;
+            background: rgba(255, 209, 102, 0.2);
+            transform: scale(1.1);
+        }
+        .sidebar .info-item {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+        .sidebar .info-item label {
+            display: block;
+            color: #cbd5e1;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .sidebar .info-item input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #475569;
+            border-radius: 5px;
+            background: rgba(26, 26, 46, 0.5);
+            color: white;
+        }
+        .sidebar .edit-btn {
+            width: 100%;
+            padding: 10px;
+            background: #ffd166;
+            color: #1a1a2e;
+            font-weight: bold;
+            margin-top: auto;
+        }
+        .sidebar .edit-btn:hover {
+            background: #ffbe0b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 209, 102, 0.4);
+        }
+        .content {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+        .content h2 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ffd166;
+            color: #ffd166;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .content h2 i {
+            color: #ef476f;
+        }
+        .content .section {
+            margin-bottom: 30px;
+        }
+        /* 生日祝福语样式 */
+        .blessing-card {
+            margin-bottom: 20px;
+            padding: 25px;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 12px;
+            border-left: 5px solid #ef476f;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .blessing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255, 209, 102, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .blessing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 209, 102, 0.3);
+        }
+        .blessing-card:hover::before {
+            opacity: 1;
+        }
+        .blessing-card h3 {
+            margin-bottom: 10px;
+            color: #ffd166;
+            font-size: 18px;
+        }
+        .blessing-card p {
+            color: #cbd5e1;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .blessing-card .blessing-from {
+            margin-top: 10px;
+            text-align: right;
+            color: #8d99ae;
+            font-size: 14px;
+        }
+        .logout-btn {
+            background: #ef476f;
+            margin-top: 20px;
+        }
+        .logout-btn:hover {
+            background: #d9375b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(239, 71, 111, 0.4);
+        }
+        /* 头像预览弹窗 */
+        .preview-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .preview-content {
+            position: relative;
+            text-align: center;
+        }
+        .preview-img {
+            width: 300px;
+            height: 300px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 5px solid #ffd166;
+            box-shadow: 0 0 20px rgba(255, 209, 102, 0.5);
+        }
+        .modal-btn {
+            position: relative;
+            top: 20px;
+            padding: 8px 20px;
+            margin: 0 10px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- 烟花画布（全局唯一） -->
+    <canvas id="fireworksCanvas"></canvas>
+
+    <!-- 登录和修改密码面板容器 -->
+    <div id="authContainer" class="container">
+        <!-- 登录表单 -->
+        <div id="loginPanel">
+            <h2 class="title">欢迎寿星</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">账号</label>
+                    <input type="text" id="loginUsername" placeholder="请输入账号" value="">
+                    <div class="error" id="loginUsernameError">请输入账号</div>
+                    <div class="error" id="loginFailError" style="display: none;">账号或密码错误</div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">密码</label>
+                    <input type="password" id="loginPassword" placeholder="请输入密码" value="">
+                    <div class="error" id="loginPasswordError">请输入密码</div>
+                </div>
+                <button type="submit" class="btn login-btn">登录</button>
+                <div class="link">
+                    <a href="javascript:;" onclick="showChangePwdPanel()">忘记密码？点击修改</a>
+                </div>
+            </form>
+        </div>
+
+        <!-- 修改密码表单（默认隐藏） -->
+        <div id="changePwdPanel" style="display: none;">
+            <h2 class="title">修改密码</h2>
+            <form id="changePwdForm">
+                <div class="form-group">
+                    <label for="changeUsername">账号</label>
+                    <input type="text" id="changeUsername" placeholder="请输入账号">
+                    <div class="error" id="changeUsernameError">请输入账号</div>
+                </div>
+                <div class="form-group">
+                    <label for="oldPassword">原密码</label>
+                    <input type="password" id="oldPassword" placeholder="请输入原密码">
+                    <div class="error" id="oldPasswordError">请输入原密码</div>
+                    <div class="error" id="oldPwdWrongError" style="display: none;">原密码错误</div>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">新密码</label>
+                    <input type="password" id="newPassword" placeholder="请输入新密码">
+                    <div class="error" id="newPasswordError">请输入新密码（至少6位）</div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">确认新密码</label>
+                    <input type="password" id="confirmPassword" placeholder="请再次输入新密码">
+                    <div class="error" id="confirmPasswordError">两次密码输入不一致</div>
+                </div>
+                <button type="submit" class="btn login-btn">确认修改</button>
+                <div class="link">
+                    <a href="javascript:;" onclick="showLoginPanel()">返回登录</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 头像预览弹窗 -->
+    <div class="preview-modal" id="avatarPreviewModal">
+        <div class="preview-content">
+            <img src="" alt="头像预览" class="preview-img" id="previewImg">
+            <button class="btn modal-btn login-btn" onclick="confirmAvatar()">确认使用</button>
+            <button class="btn modal-btn logout-btn" onclick="closePreviewModal()">取消</button>
+        </div>
+    </div>
+
+    <!-- 账号1专属生日祝福界面 -->
+    <div id="birthday-3067337785" class="birthday-page">
+        <div class="nav">
+            <h1><i class="fas fa-birthday-cake"></i> 生日祝福专区</h1>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40/ffd166/1a1a2e?text=U1" alt="用户头像" id="navAvatar-3067337785" onclick="triggerAvatarUpload('3067337785')">
+                <span>杨康</span>
+            </div>
+        </div>
+        <div class="main">
+            <div class="sidebar">
+                <div class="avatar-container">
+                    <img src="https://via.placeholder.com/150/ffd166/1a1a2e?text=U1" alt="个人头像" class="avatar" id="sidebarAvatar-3067337785" onclick="triggerAvatarUpload('3067337785')">
+                    <div class="avatar-upload">
+                        <input type="file" id="avatarInput-3067337785" accept="image/*" onchange="handleAvatarUpload('3067337785')">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <h2 id="userName-3067337785" contenteditable="true">杨康</h2>
+                <div class="birthday-tag">寿星专属</div>
+                <p id="userMotto-3067337785" contenteditable="true">愿所有美好如期而至！</p>
+                <div class="contact">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                    <a href="#"><i class="fas fa-gift"></i></a>
+                </div>
+                <div class="info-item">
+                    <label>生日日期</label>
+                    <input type="text" id="userBirthday-3067337785" value="2005-12-02">
+                </div>
+                <div class="info-item">
+                    <label>所在城市</label>
+                    <input type="text" id="userCity-3067337785" value="贵州 三穗">
+                </div>
+                <div class="info-item">
+                    <label>生日愿望</label>
+                    <input type="text" id="userWish-3067337785" value="平安喜乐，万事顺意">
+                </div>
+                <button class="btn edit-btn" onclick="saveInfo('3067337785')">保存所有信息</button>
+                <button class="btn logout-btn" onclick="logout()">退出登录</button>
+            </div>
+            <div class="content">
+                <h2><i class="fas fa-heart"></i> 好友生日祝福</h2>
+                <div class="section">
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 22501 全体成员</h3>
+                        <p>祝杨康生日快乐！愿你前路浩浩荡荡，万事尽可期待，代码无bug，生活无烦恼，永远眼里有光，心中有爱！</p>
+                        <div class="blessing-from">—— 2025-12-02</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 好友 小杨</h3>
+                        <p>生日快乐呀！认识这么久，见证了你一路的成长与努力，新的一岁愿你被世界温柔以待，想要的都拥有，得不到的都释怀，天天开心！</p>
+                        <div class="blessing-from">—— 2025-12-02</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 家人</h3>
+                        <p>宝贝生日快乐！愿你平安健康，自信勇敢，无论走多远，家永远是你的港湾，我们永远是你最坚实的后盾，爱你哟！</p>
+                        <div class="blessing-from">—— 2025-12-02</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 同学 小张</h3>
+                        <p>祝大神生日快乐！学习中多亏了你的帮助与指导，新的一岁愿你事业蒸蒸日上，技术突飞猛进，暴富暴美，好运连连！</p>
+                        <div class="blessing-from">—— 2025-12-02</div>
+                    </div>
+                </div>
+                <h2><i class="fas fa-star"></i> 生日寄语</h2>
+                <div class="section">
+                    <div class="blessing-card" style="border-left-color: #4facfe;">
+                        <p>生日是新的开始，愿你在未来的日子里，既有烟火气，又有诗意，不慌不忙，向阳生长，活成自己喜欢的样子！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 账号2专属生日祝福界面 -->
+    <div id="birthday-1008612" class="birthday-page">
+        <div class="nav">
+            <h1><i class="fas fa-birthday-cake"></i> 生日祝福专区</h1>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40/4facfe/1a1a2e?text=U2" alt="用户头像" id="navAvatar-1008612" onclick="triggerAvatarUpload('1008612')">
+                <span>1008612</span>
+            </div>
+        </div>
+        <div class="main">
+            <div class="sidebar">
+                <div class="avatar-container">
+                    <img src="https://via.placeholder.com/150/4facfe/1a1a2e?text=U2" alt="个人头像" class="avatar" id="sidebarAvatar-1008612" onclick="triggerAvatarUpload('1008612')">
+                    <div class="avatar-upload">
+                        <input type="file" id="avatarInput-1008612" accept="image/*" onchange="handleAvatarUpload('1008612')">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                </div>
+                <h2 id="userName-1008612" contenteditable="true">管理员</h2>
+                <div class="birthday-tag">寿星专属</div>
+                <p id="userMotto-1008612" contenteditable="true">新岁新起点，万事皆可期！</p>
+                <div class="contact">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                    <a href="#"><i class="fas fa-gift"></i></a>
+                </div>
+                <div class="info-item">
+                    <label>生日日期</label>
+                    <input type="text" id="userBirthday-1008612" value="1995-05-15">
+                </div>
+                <div class="info-item">
+                    <label>所属部门</label>
+                    <input type="text" id="userDept-1008612" value="技术部">
+                </div>
+                <div class="info-item">
+                    <label>生日愿望</label>
+                    <input type="text" id="userWish-1008612" value="系统稳定，团队和睦">
+                </div>
+                <button class="btn edit-btn" onclick="saveInfo('1008612')">保存所有信息</button>
+                <button class="btn logout-btn" onclick="logout()">退出登录</button>
+            </div>
+            <div class="content">
+                <h2><i class="fas fa-heart"></i> 同事生日祝福</h2>
+                <div class="section">
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 技术部 全体同事</h3>
+                        <div class="blessing-from">—— 2024-05-15</div>
+                        <p>祝管理员生日快乐！感谢你一直以来的带领与付出，是你让团队更有凝聚力，新的一岁愿你工作顺利，身体健康，阖家幸福，心想事成！</p>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 运营部 小王</h3>
+                        <p>祝超靠谱的管理员生日快乐！每次遇到问题你都能及时解决，有你在太安心了，新岁愿你暴富暴帅，烦恼清零，快乐加倍！</p>
+                        <div class="blessing-from">—— 2024-05-15</div>
+                    </div>
+                    <div class="blessing-card" onclick="triggerFireworks()">
+                        <h3>来自 领导 张总</h3>
+                        <p>生日快乐！你在工作中的责任心和专业能力值得所有人学习，新的一年期待你带来更多惊喜，愿你前程似锦，未来可期！</p>
+                        <div class="blessing-from">—— 2024-05-15</div>
+                    </div>
+                </div>
+                <h2><i class="fas fa-star"></i> 生日寄语</h2>
+                <div class="section">
+                    <div class="blessing-card" style="border-left-color: #1dd1a1;">
+                        <p>成长不期而遇，生日如期而至。愿你在新的一岁里，保持热爱，奔赴山海，既有盔甲也有软肋，既有诗和远方也有烟火日常！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量：存储当前上传的头像信息、烟花实例
+        let currentAvatarInfo = { username: '', tempUrl: '' };
+        let fireworks = [];
+        let fireworkTimer = null;
+
+        // 预设多个账号信息（账号、密码、个人信息、头像）
+        const userList = {
+            '3067337785': { 
+                password: '12345678', 
+                info: {
+                    name: '杨康',
+                    motto: '愿所有美好如期而至！',
+                    birthday: '2005-12-02',
+                    city: '贵州 三穗',
+                    wish: '平安喜乐，万事顺意',
+                    avatar: 'https://via.placeholder.com/150/ffd166/1a1a2e?text=U1', // 默认头像
+                    navAvatar: 'https://via.placeholder.com/40/ffd166/1a1a2e?text=U1'
+                }
+            },
+            '1008612': { 
+                password: 'admin888', 
+                info: {
+                    name: '管理员',
+                    motto: '新岁新起点，万事皆可期！',
+                    birthday: '1995-05-15',
+                    dept: '技术部',
+                    wish: '系统稳定，团队和睦',
+                    avatar: 'https://via.placeholder.com/150/4facfe/1a1a2e?text=U2', // 默认头像
+                    navAvatar: 'https://via.placeholder.com/40/4facfe/1a1a2e?text=U2'
+                }
+            }
+        };
+        
+        // ====================== 持久化核心功能 ======================
+        // 从localStorage加载用户数据
+        function initUserData() {
+            const savedUsers = localStorage.getItem('persistentUserList');
+            if (savedUsers) {
+                Object.assign(userList, JSON.parse(savedUsers));
+            }
+        }
+
+        // 页面加载初始化
+        window.onload = function() {
+            initUserData(); // 加载本地存储数据
+            initFireworks();
+        };
+
+        // ====================== 烟花特效核心代码 ======================
+        class Firework {
+            constructor(x, y) {
+                // 烟花发射点（鼠标点击位置或随机位置）
+                this.x = x || Math.random() * window.innerWidth;
+                this.y = y || window.innerHeight;
+                // 烟花目标点（随机高度）
+                this.targetY = Math.random() * window.innerHeight * 0.4 + 50;
+                this.targetX = x || Math.random() * window.innerWidth;
+                // 运动速度
+                this.speed = Math.random() * 3 + 2;
+                // 颜色（生日主题色：粉、黄、蓝、红）
+                this.color = ['#ef476f', '#ffd166', '#4facfe', '#1dd1a1'][Math.floor(Math.random() * 4)];
+                // 状态：true=上升中，false=爆炸后
+                this.active = true;
+                // 粒子数组（爆炸后生成）
+                this.particles = [];
+            }
+
+            // 更新烟花位置
+            update() {
+                if (this.active) {
+                    // 计算到目标点的距离
+                    const dx = this.targetX - this.x;
+                    const dy = this.targetY - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    // 到达目标点，触发爆炸
+                    if (distance < 10) {
+                        this.explode();
+                        this.active = false;
+                        return;
+                    }
+
+                    // 向目标点移动
+                    this.x += (dx / distance) * this.speed;
+                    this.y += (dy / distance) * this.speed;
+                } else {
+                    // 更新粒子状态
+                    for (let i = this.particles.length - 1; i >= 0; i--) {
+                        this.particles[i].update();
+                        if (!this.particles[i].active) {
+                            this.particles.splice(i, 1);
+                        }
+                    }
+                }
+            }
+
+            // 烟花爆炸生成粒子
+            explode() {
+                const particleCount = Math.random() * 50 + 30; // 粒子数量
+                for (let i = 0; i < particleCount; i++) {
+                    this.particles.push(new Particle(this.x, this.y, this.color));
+                }
+            }
+
+            // 绘制烟花
+            draw(ctx) {
+                if (this.active) {
+                    ctx.beginPath();
+                    ctx.moveTo(this.x, this.y);
+                    ctx.lineTo(this.x + (this.targetX - this.x) * 0.1, this.y + (this.targetY - this.y) * 0.1);
+                    ctx.strokeStyle = this.color;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+
+                    // 绘制烟花头部亮点
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+                    ctx.fillStyle = this.color;
+                    ctx.fill();
+                } else {
+                    // 绘制粒子
+                    this.particles.forEach(particle => particle.draw(ctx));
+                }
+            }
+        }
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                // 随机运动方向
+                this.vx = (Math.random() - 0.5) * 8;
+                this.vy = (Math.random() - 0.5) * 8;
+                // 重力影响
+                this.gravity = 0.1;
+                // 透明度
+                this.alpha = 1;
+                this.color = color;
+                this.active = true;
+            }
+
+            update() {
+                // 应用重力
+                this.vy += this.gravity;
+                // 更新位置
+                this.x += this.vx;
+                this.y += this.vy;
+                // 透明度衰减
+                this.alpha -= 0.02;
+                // 透明度为0时失效
+                if (this.alpha <= 0) {
+                    this.active = false;
+                }
+            }
+
+            draw(ctx) {
+                ctx.save();
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        // 初始化烟花画布
+        const initFireworks = () => {
+            const canvas = document.getElementById('fireworksCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // 设置画布大小
+            const resizeCanvas = () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            };
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            // 动画循环
+            const animate = () => {
+                // 半透明黑色覆盖，实现烟花轨迹淡出效果
+                ctx.fillStyle = 'rgba(26, 26, 46, 0.1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // 更新并绘制所有烟花
+                for (let i = fireworks.length - 1; i >= 0; i--) {
+                    fireworks[i].update();
+                    fireworks[i].draw(ctx);
+                    // 烟花爆炸后粒子消失，移除烟花
+                    if (!fireworks[i].active && fireworks[i].particles.length === 0) {
+                        fireworks.splice(i, 1);
+                    }
+                }
+
+                requestAnimationFrame(animate);
+            };
+            animate();
+        };
+
+        // 触发烟花（可指定位置）
+        const triggerFireworks = (x, y) => {
+            // 添加新烟花
+            fireworks.push(new Firework(x, y));
+            // 连续发射3个，效果更密集
+            setTimeout(() => fireworks.push(new Firework(x, y)), 100);
+            setTimeout(() => fireworks.push(new Firework(x, y)), 200);
+        };
+
+        // 页面加载时初始化烟花
+        window.addEventListener('load', initFireworks);
+
+        // 点击页面任意位置触发烟花（可选）
+        document.addEventListener('click', (e) => {
+            // 排除登录面板和弹窗区域
+            if (!document.getElementById('authContainer').contains(e.target) && 
+                !document.getElementById('avatarPreviewModal').contains(e.target)) {
+                triggerFireworks(e.clientX, e.clientY);
+            }
+        });
+
+        // ====================== 原有功能代码 ======================
+        // 切换到登录面板
+        function showLoginPanel() {
+            document.getElementById('loginPanel').style.display = 'block';
+            document.getElementById('changePwdPanel').style.display = 'none';
+            document.getElementById('loginFailError').style.display = 'none';
+        }
+
+        // 切换到修改密码面板
+        function showChangePwdPanel() {
+            document.getElementById('loginPanel').style.display = 'none';
+            document.getElementById('changePwdPanel').style.display = 'block';
+            document.getElementById('oldPwdWrongError').style.display = 'none';
+            document.getElementById('confirmPasswordError').style.display = 'none';
+        }
+
+        // 退出登录：隐藏所有首页，显示登录面板
+        function logout() {
+            document.querySelectorAll('.birthday-page').forEach(page => {
+                page.style.display = 'none';
+            });
+            document.getElementById('authContainer').style.display = 'block';
+            document.getElementById('loginForm').reset();
+            // 清除自动烟花定时器
+            if (fireworkTimer) clearInterval(fireworkTimer);
+        }
+
+        // 触发头像上传（点击头像或相机图标时调用）
+        function triggerAvatarUpload(username) {
+            document.getElementById(`avatarInput-${username}`).click();
+        }
+
+        // 处理头像上传预览
+        function handleAvatarUpload(username) {
+            const fileInput = document.getElementById(`avatarInput-${username}`);
+            const file = fileInput.files[0];
+            
+            if (!file) return;
+
+            // 验证文件类型
+            const fileType = file.type;
+            if (!fileType.startsWith('image/')) {
+                alert('请选择图片文件（JPG、PNG等）');
+                fileInput.value = '';
+                return;
+            }
+
+            // 预览图片
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentAvatarInfo.username = username;
+                currentAvatarInfo.tempUrl = e.target.result;
+                
+                // 显示预览弹窗
+                document.getElementById('previewImg').src = e.target.result;
+                document.getElementById('avatarPreviewModal').style.display = 'flex';
+            };
+            reader.readAsDataURL(file);
+
+            // 重置文件输入框（避免重复上传同一文件时不触发change事件）
+            fileInput.value = '';
+        }
+
+        // 确认使用上传的头像
+        function confirmAvatar() {
+            const { username, tempUrl } = currentAvatarInfo;
+            if (!username || !tempUrl) return;
+
+            // 更新界面头像
+            document.getElementById(`sidebarAvatar-${username}`).src = tempUrl;
+            document.getElementById(`navAvatar-${username}`).src = tempUrl;
+
+            // 保存到用户信息中
+            userList[username].info.avatar = tempUrl;
+            userList[username].info.navAvatar = tempUrl;
+
+            // 关闭预览弹窗
+            closePreviewModal();
+            alert('头像修改成功！点击"保存所有信息"可永久保存');
+            // 触发头像修改成功烟花
+            triggerFireworks(window.innerWidth / 2, window.innerHeight / 2);
+        }
+
+        // 关闭头像预览弹窗
+        function closePreviewModal() {
+            document.getElementById('avatarPreviewModal').style.display = 'none';
+            currentAvatarInfo = { username: '', tempUrl: '' };
+        }
+
+        // 登录表单验证与提交
+        const loginForm = document.getElementById('loginForm');
+        const loginUsername = document.getElementById('loginUsername');
+        const loginPassword = document.getElementById('loginPassword');
+        const loginUsernameError = document.getElementById('loginUsernameError');
+        const loginPasswordError = document.getElementById('loginPasswordError');
+        const loginFailError = document.getElementById('loginFailError');
+
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = loginUsername.value.trim();
+            const password = loginPassword.value.trim();
+            let isValide = true;
+
+            // 基础验证
+            if (!username) {
+                loginUsernameError.style.display = 'block';
+                isValide = false;
+            } else loginUsernameError.style.display = 'none';
+
+            if (!password) {
+                loginPasswordError.style.display = 'block';
+                isValide = false;
+            } else loginPasswordError.style.display = 'none';
+
+            // 账号密码验证
+            if (isValide) {
+                if (userList[username] && userList[username].password === password) {
+                    // 登录成功：隐藏登录面板，显示对应账号的生日祝福界面
+                    document.getElementById('authContainer').style.display = 'none';
+                    document.getElementById(`birthday-${username}`).style.display = 'block';
+                    // 填充个人信息
+                    fillUserInfo(username);
+                    // 登录成功触发全屏烟花特效
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(() => {
+                            triggerFireworks(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+                        }, i * 300);
+                    }
+                    // 开启自动烟花（每3秒一次）
+                    if (fireworkTimer) clearInterval(fireworkTimer);
+                    fireworkTimer = setInterval(() => {
+                        triggerFireworks();
+                    }, 3000);
+                } else {
+                    loginFailError.style.display = 'block';
+                }
+            }
+        });
+
+        // 填充个人信息到界面
+        function fillUserInfo(username) {
+            const user = userList[username];
+            if (username === '1008611') {
+                document.getElementById('userName-1008611').textContent = user.info.name;
+                document.getElementById('userMotto-1008611').textContent = user.info.motto;
+                document.getElementById('userBirthday-1008611').value = user.info.birthday;
+                document.getElementById('userCity-1008611').value = user.info.city;
+                document.getElementById('userWish-1008611').value = user.info.wish;
+                document.getElementById('sidebarAvatar-1008611').src = user.info.avatar;
+                document.getElementById('navAvatar-1008611').src = user.info.navAvatar;
+            } else if (username === '1008612') {
+                document.getElementById('userName-1008612').textContent = user.info.name;
+                document.getElementById('userMotto-1008612').textContent = user.info.motto;
+                document.getElementById('userBirthday-1008612').value = user.info.birthday;
+                document.getElementById('userDept-1008612').value = user.info.dept;
+                document.getElementById('userWish-1008612').value = user.info.wish;
+                document.getElementById('sidebarAvatar-1008612').src = user.info.avatar;
+                document.getElementById('navAvatar-1008612').src = user.info.navAvatar;
+            }
+        }
+
+        // 保存所有个人信息（包含头像、基本信息）
+        function saveInfo(username) {
+            const user = userList[username];
+            if (username === '1008611') {
+                user.info.name = document.getElementById('userName-1008611').textContent;
+                user.info.motto = document.getElementById('userMotto-1008611').textContent;
+                user.info.birthday = document.getElementById('userBirthday-1008611').value;
+                user.info.city = document.getElementById('userCity-1008611').value;
+                user.info.wish = document.getElementById('userWish-1008611').value;
+            } else if (username === '1008612') {
+                user.info.name = document.getElementById('userName-1008612').textContent;
+                user.info.motto = document.getElementById('userMotto-1008612').textContent;
+                user.info.birthday = document.getElementById('userBirthday-1008612').value;
+                user.info.dept = document.getElementById('userDept-1008612').value;
+                user.info.wish = document.getElementById('userWish-1008612').value;
+            }
+            alert('所有个人信息保存成功！');
+            // 触发保存成功烟花
+            triggerFireworks(window.innerWidth / 2, window.innerHeight / 2);
+        }
+
+        // 修改密码表单验证与提交
+        const changePwdForm = document.getElementById('changePwdForm');
+        const changeUsername = document.getElementById('changeUsername');
+        const oldPassword = document.getElementById('oldPassword');
+        const newPassword = document.getElementById('newPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        const changeUsernameError = document.getElementById('changeUsernameError');
+        const oldPasswordError = document.getElementById('oldPasswordError');
+        const newPasswordError = document.getElementById('newPasswordError');
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+        const oldPwdWrongError = document.getElementById('oldPwdWrongError');
+
+        changePwdForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const username = changeUsername.value.trim();
+            const oldPwd = oldPassword.value.trim();
+            const newPwd = newPassword.value.trim();
+            const confirmPwd = confirmPassword.value.trim();
+            let isValide = true;
+
+            // 清空错误提示
+            oldPwdWrongError.style.display = 'none';
+
+            // 基础验证
+            if (!username) {
+                changeUsernameError.style.display = 'block';
+                isValide = false;
+            } else if (!userList[username]) {
+                changeUsernameError.textContent = '账号不存在';
+                changeUsernameError.style.display = 'block';
+                isValide = false;
+            } else changeUsernameError.style.display = 'none';
+
+            if (!oldPwd) {
+                oldPasswordError.style.display = 'block';
+                isValide = false;
+            } else if (userList[username].password !== oldPwd) {
+                oldPwdWrongError.style.display = 'block';
+                oldPasswordError.style.display = 'none';
+                isValide = false;
+            } else oldPasswordError.style.display = 'none';
+
+            if (!newPwd || newPwd.length < 6) {
+                newPasswordError.style.display = 'block';
+                isValide = false;
+            } else newPasswordError.style.display = 'none';
+
+            if (!confirmPwd || confirmPwd !== newPwd) {
+                confirmPasswordError.style.display = 'block';
+                isValide = false;
+            } else confirmPasswordError.style.display = 'none';
+
+            // 验证通过，修改密码
+            if (isValide) {
+                userList[username].password = newPwd;
+                alert(`账号 ${username} 密码修改成功！新密码：${newPwd}`);
+                showLoginPanel();
+                changePwdForm.reset();
+                // 触发密码修改成功烟花
+                triggerFireworks(window.innerWidth / 2, window.innerHeight / 2);
+            }
+        });
+    </script>
+    <!-- 引入Font Awesome图标库（生日蛋糕、爱心等图标） -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
